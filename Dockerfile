@@ -16,7 +16,7 @@ RUN echo "\n## Preparing OS..." && \
     gpg -v --with-fingerprint SWITCHaai-swdistrib.asc | grep $SWITCH_KEY_FP && \
     apt-key add SWITCHaai-swdistrib.asc && \
     echo 'deb http://pkg.switch.ch/switchaai/debian stretch main' | tee /etc/apt/sources.list.d/SWITCHaai-swdistrib.list > /dev/null && \
-    install_packages shibboleth libapache2-mod-shib2 && \
+    install_packages shibboleth libapache2-mod-shib2 dehydrated && \
     mkdir -p /run/shibboleth && chmod 0755 /run/shibboleth && chown _shibd /run/shibboleth && \
     mkdir -p /var/shibboleth && chmod 0755 /run/shibboleth && chown _shibd /run/shibboleth && \
     echo "\n## Tidying up..." && \
