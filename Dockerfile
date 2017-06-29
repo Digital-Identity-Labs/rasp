@@ -1,6 +1,6 @@
 FROM bitnami/minideb:latest
 
-LABEL description="A simple Apache 2.4 proxy service including the Shibboleth SP module" \
+LABEL description="A simple, unconfigured Apache 2.4 proxy service including the Shibboleth SP module" \
       version="0.1.0" \
       maintainer="pete@digitalidentitylabs.com"
 
@@ -10,7 +10,7 @@ ARG SWITCH_KEY_FP=26C3C46915B76742
 WORKDIR $SRC_DIR
 
 RUN echo "\n## Preparing OS..." && \
-    install_packages curl runit apache2 openssl ca-certificates gnupg dirmngr && \
+    install_packages curl runit apache2 openssl ca-certificates gnupg dirmngr procps net-tools && \
     echo "\n## Installing SWITCH Shibboleth SP packages..." && \
     curl -O http://pkg.switch.ch/switchaai/SWITCHaai-swdistrib.asc && \
     gpg -v --with-fingerprint SWITCHaai-swdistrib.asc | grep $SWITCH_KEY_FP && \
@@ -30,6 +30,9 @@ RUN mv /etc/admin /opt/admin && chmod a+x /opt/admin/*.sh && sync && /opt/admin/
 EXPOSE 80 8080 443 8443 9443
 STOPSIGNAL INT
 CMD ["/opt/admin/bootstrap_runit.sh"]
+
+HEALTHCHECK --interval=30s --timeout=1s CMD curl -f http://localhost/server-status || exit 1
+
 
 
 
