@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
 source /etc/envvars
-chpst -u _shibd /usr/sbin/shibd -F -f -c /etc/shibboleth/shibboleth2.xml -p /var/run/shibboleth/shibd.pid -w 30
+exec chpst -u _shibd /usr/sbin/shibd -F -f -c /etc/shibboleth/shibboleth2.xml -p /var/run/shibboleth/shibd.pid -w 30

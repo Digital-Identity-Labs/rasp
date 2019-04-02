@@ -28,8 +28,8 @@ COPY etcfs /etc
 RUN mv /etc/admin /opt/admin && chmod a+x /opt/admin/*.sh && sync && /opt/admin/prepare_apps.sh && export > /etc/envvars
 
 EXPOSE 80 8080 443 8443 9443
-STOPSIGNAL INT
-CMD ["/opt/admin/bootstrap_runit.sh"]
+STOPSIGNAL HUP
+ENTRYPOINT ["/opt/admin/bootstrap_runit.sh"]
 
 HEALTHCHECK --interval=30s --timeout=1s CMD curl -f http://localhost/server-status || exit 1
 
