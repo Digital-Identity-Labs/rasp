@@ -8,7 +8,7 @@ chmod a+x /etc/service/**/run && touch /etc/inittab && \
 mkdir -p /var/run/apache2 && chown www-data /var/run/apache2 && \
 mkdir -p /var/run/shibboleth && touch /etc/shibboleth/sp-key.pem && \
 chown _shibd:_shibd /var/run/shibboleth /var/log/shibboleth /etc/shibboleth/sp-key.pem && \
-a2enmod  shib2 ssl http2 rewrite proxy proxy_balancer proxy_ajp proxy_http proxy_http2 \
+a2enmod  shib ssl http2 rewrite proxy proxy_balancer proxy_ajp proxy_http proxy_http2 \
          headers expires deflate status && \
 a2dismod cgi cgid
 a2enconf defaults deversion security pterry tuning zz_overrides && \
