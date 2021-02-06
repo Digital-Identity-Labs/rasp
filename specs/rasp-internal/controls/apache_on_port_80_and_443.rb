@@ -10,13 +10,13 @@ control "apache_on_port_80_and_443" do
 
   describe port(80) do
     it {should be_listening}
-    its('protocols') {should include 'tcp6'}
+    its('protocols') {should include 'tcp'}
     its('processes') {should include 'apache2'}
   end
 
   describe port(443) do
     it {should be_listening}
-    its('protocols') {should include 'tcp6'}
+    its('protocols') {should include 'tcp'}
     its('processes') {should include 'apache2'}
   end
 
