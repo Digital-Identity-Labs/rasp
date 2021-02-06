@@ -1,7 +1,7 @@
 FROM bitnami/minideb:latest
 
-LABEL description="A simple, unconfigured Apache 2.4 proxy service including the Shibboleth SP module" \
-      version="0.1.0" \
+LABEL description="A simple, unconfigured Apache 2.4 proxy service including the Shibboleth SP module (SWITCH edition)" \
+      version="0.2.0" \
       maintainer="pete@digitalidentitylabs.com"
 
 ARG SRC_DIR=/usr/local/src
@@ -15,7 +15,7 @@ RUN echo "\n## Preparing OS..." && \
     curl -O http://pkg.switch.ch/switchaai/SWITCHaai-swdistrib.asc && \
     gpg -v --with-fingerprint SWITCHaai-swdistrib.asc | grep $SWITCH_KEY_FP && \
     apt-key add SWITCHaai-swdistrib.asc && \
-    echo 'deb http://pkg.switch.ch/switchaai/debian stretch main' | tee /etc/apt/sources.list.d/SWITCHaai-swdistrib.list > /dev/null && \
+    echo 'deb http://pkg.switch.ch/switchaai/debian buster main' | tee /etc/apt/sources.list.d/SWITCHaai-swdistrib.list > /dev/null && \
     install_packages shibboleth libapache2-mod-shib2 dehydrated && \
     mkdir -p /run/shibboleth && chmod 0755 /run/shibboleth && chown _shibd /run/shibboleth && \
     mkdir -p /var/shibboleth && chmod 0755 /run/shibboleth && chown _shibd /run/shibboleth && \
