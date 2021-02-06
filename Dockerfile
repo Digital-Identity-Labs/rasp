@@ -5,23 +5,27 @@ LABEL description="A simple, unconfigured Apache 2.4 proxy service including the
       maintainer="pete@digitalidentitylabs.com"
 
 ARG SRC_DIR=/usr/local/src
-ARG SWITCH_KEY_FP=26C3C46915B76742
+ARG SWITCH_KEY_FP="294E 37D1 5415 6E00 FB96 D7AA 26C3 C469 15B7 6742"
+ARG REPODEB_FILE=switchaai-apt-source_1.0.0_all.deb
+ARG REPODEB_URL=https://pkg.switch.ch/switchaai/debian/dists/buster/main/binary-all/misc/${REPODEB_FILE}
+ARG APT_KEY_DONT_WARN_ON_DANGEROUS_USAGE=1
+ARG DEBIAN_FRONTEND="noninteractive"
 
 WORKDIR $SRC_DIR
 
 RUN echo "\n## Preparing OS..." && \
-    install_packages curl runit apache2 openssl ca-certificates gnupg dirmngr procps net-tools && \
+    install_packages curl runit apache2 openssl ca-certificates gnupg dirmngr procps net-tools apt-utils && \
+    echo "\n## Adding SWITCH Debian package repository" && \
+    curl --fail --remote-name $REPODEB_URL  && \
+    apt-get install ./$REPODEB_FILE && \
+    apt-key --keyring /usr/share/keyrings/SWITCHaai-swdistrib.gpg list | echo grep '${SWITCH_KEY_FP}' && \
     echo "\n## Installing SWITCH Shibboleth SP packages..." && \
-    curl -O http://pkg.switch.ch/switchaai/SWITCHaai-swdistrib.asc && \
-    gpg -v --with-fingerprint SWITCHaai-swdistrib.asc | grep $SWITCH_KEY_FP && \
-    apt-key add SWITCHaai-swdistrib.asc && \
-    echo 'deb http://pkg.switch.ch/switchaai/debian buster main' | tee /etc/apt/sources.list.d/SWITCHaai-swdistrib.list > /dev/null && \
     install_packages shibboleth libapache2-mod-shib2 dehydrated && \
     mkdir -p /run/shibboleth && chmod 0755 /run/shibboleth && chown _shibd /run/shibboleth && \
     mkdir -p /var/shibboleth && chmod 0755 /run/shibboleth && chown _shibd /run/shibboleth && \
     echo "\n## Tidying up..." && \
     rm -rf $SRC_DIR/* && \
-    apt-get remove --auto-remove --yes --allow-remove-essential gnupg dirmngr
+    apt-get remove --auto-remove --yes --allow-remove-essential gnupg dirmngr apt-utils
 
 COPY etcfs /etc
 
