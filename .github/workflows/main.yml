@@ -16,7 +16,7 @@ jobs:
         with:
           ruby-version: 2.6.6
       - name: Run InSpec tests on local image
-        run: bundle && bundle exec rake test
+        run: bundle update --bundler && bundle && bundle exec rake test
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v1
       - name: Prepare tags

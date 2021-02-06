@@ -26,7 +26,7 @@ RUN echo "\n## Preparing OS..." && \
     echo "\n## Tidying up..." && \
     rm -rf $SRC_DIR/* && \
     apt-get remove --auto-remove --yes --allow-remove-essential gnupg dirmngr apt-utils && \
-    rm -rf /var/lib/apt/lists 
+    rm -rf /var/lib/apt/lists
 
 COPY etcfs /etc
 
