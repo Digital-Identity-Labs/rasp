@@ -25,7 +25,8 @@ RUN echo "\n## Preparing OS..." && \
     mkdir -p /var/shibboleth && chmod 0755 /run/shibboleth && chown _shibd /run/shibboleth && \
     echo "\n## Tidying up..." && \
     rm -rf $SRC_DIR/* && \
-    apt-get remove --auto-remove --yes --allow-remove-essential gnupg dirmngr apt-utils
+    apt-get remove --auto-remove --yes --allow-remove-essential gnupg dirmngr apt-utils && \
+    rm -rf /var/lib/apt/lists 
 
 COPY etcfs /etc
 
