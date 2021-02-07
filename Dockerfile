@@ -1,7 +1,7 @@
 FROM bitnami/minideb:latest
 
 LABEL description="A simple, unconfigured Apache 2.4 proxy service including the Shibboleth SP module (SWITCH edition)" \
-      version="0.2.0" \
+      version="0.2.1" \
       maintainer="pete@digitalidentitylabs.com"
 
 ARG SRC_DIR=/usr/local/src
@@ -23,10 +23,10 @@ RUN echo "\n## Preparing OS..." && \
     install_packages shibboleth libapache2-mod-shib2 dehydrated && \
     mkdir -p /run/shibboleth && chmod 0755 /run/shibboleth && chown _shibd /run/shibboleth && \
     mkdir -p /var/shibboleth && chmod 0755 /run/shibboleth && chown _shibd /run/shibboleth && \
+    mkdir -p /etc/scripts && \
     echo "\n## Tidying up..." && \
     rm -rf $SRC_DIR/* && \
-    apt-get remove --auto-remove --yes --allow-remove-essential gnupg dirmngr apt-utils && \
-    rm -rf /var/lib/apt/lists
+    apt-get remove --auto-remove --yes --allow-remove-essential gnupg dirmngr apt-utils
 
 COPY etcfs /etc
 
