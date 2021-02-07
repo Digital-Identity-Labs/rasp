@@ -14,17 +14,17 @@ control "tidy_files" do
     its('stdout') { should eq "1" }
   end
 
-  describe.one do
-
-    describe file('/var/lib/apt/lists') do
-      it {should_not exist}
-    end
-
-    describe file('/var/lib/apt/lists') do
-      it {should be_empty}
-    end
-
-  end
+  # describe.one do
+  #
+  #   describe file('/var/lib/apt/lists') do
+  #     it {should_not exist}
+  #   end
+  #
+  #   describe file('/var/lib/apt/lists') do
+  #     it {should be_empty}
+  #   end
+  #
+  # end
 
   %w[gpg dirmngr unzip].each do |deb|
 
