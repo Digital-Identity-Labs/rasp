@@ -30,8 +30,8 @@ export > /etc/envvars
 
 PATH=/usr/local/bin:/usr/local/sbin:/bin:/sbin:/usr/bin:/usr/sbin:/usr/X11R6/bin
 
-## Run all scripts in the run_once folder. Once.
-/bin/run-parts /etc/run_once
+## Run all scripts in the scripts folder. Once.
+/bin/run-parts /etc/scripts
 
 ## Start the actual services
 exec env - PATH=$PATH runsvdir -P /etc/service &
