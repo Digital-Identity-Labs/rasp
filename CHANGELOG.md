@@ -1,5 +1,36 @@
 # Changelog
 
+## 0.3.0
+
+A big rewrite to do mostly the same thing but a little bit better
+
+### Major changes
+
+- SWITCH no longer produces custom Shibboleth SP packages but Debian's are fine now,
+  so we use those instead.
+- Scripts and tools that were copied to /opt/admin are now in /etc/rasp
+- The Dehydrated package has been removed
+- Inspec is no longer used due to Chef's bait-and-switch to commercial licensing
+
+### Improvements
+
+- Environment variables SP_HOST, SP_URL and SP_ID are available, by default set to the 
+  defaults used in the Shibboleth SP config files
+- A keygen.sh script has been added to /etc/rasp, it will generate separate encryption
+  and signing keypairs based on environment variables.
+- The keygen.sh script will run immediately when sub-images are built
+- Container images are built for both x86 and ARM64 platforms 
+- Container images will be available on both Dockerhub and Github.
+
+### Fixes
+
+- The Shibd process now logs to STDOUT, like Apache
+- The preparation script has been moved into the Dockerfile to improve build reliability
+
+### Known Issues
+
+- Most tests do not run, as only a few have been converted to Serverspec from Inspec so far.
+
 ## 0.2.0
 
 ### Improvements
