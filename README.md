@@ -167,7 +167,7 @@ The defaults for these settings can be changed by using `--build-arg THE_ARG="ne
 ### Why is this called "Rasp"?
 
 This project started life as **R**ails **A**pache **SP** (RASP) but the Ruby on Rails parts have been removed 
-(we're adding Ruby in a derived image now, and keeping Rasp as simple as possible)
+(we're adding Rails in a derived image now, and keeping Rasp as simple as possible)
 
 ### Thanks
 
