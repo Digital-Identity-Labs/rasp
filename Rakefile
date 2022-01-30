@@ -47,10 +47,10 @@ end
 desc "Rebuild and publish all Docker images to Github and Dockerhub, for multiple architectures"
 task publish: ["build"] do
 
-  sh "docker buildx build --platform linux/amd64,linux/arm64,linux/arm/v7 -t #{repo1}:#{full_version} --push ."
-  sh "docker buildx build --platform linux/amd64,linux/arm64,linux/arm/v7 -t #{repo1}:latest --push ."
-  sh "docker buildx build --platform linux/amd64,linux/arm64,linux/arm/v7 -t #{repo2}:#{full_version} --push ."
-  sh "docker buildx build --platform linux/amd64,linux/arm64,linux/arm/v7 -t #{repo2}:latest --push ."
+  sh "docker buildx build --platform linux/amd64,linux/arm64 -t #{repo1}:#{full_version} --push ."
+  sh "docker buildx build --platform linux/amd64,linux/arm64 -t #{repo1}:latest --push ."
+  sh "docker buildx build --platform linux/amd64,linux/arm64 -t #{repo2}:#{full_version} --push ."
+  sh "docker buildx build --platform linux/amd64,linux/arm64 -t #{repo2}:latest --push ."
 
 end
 
