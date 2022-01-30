@@ -1,2 +1,13 @@
 LICENSE
+.github
 .gitignore
+.rspec
+.ruby-version
+CHANGELOG.md
+LICENSE
+Gemfile*
+old_specs
+spec
+Readme.md
+
+
