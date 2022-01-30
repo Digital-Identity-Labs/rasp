@@ -1,2 +1,0 @@
-example.org www.example.org
-example.com www.example.com wiki.example.com
