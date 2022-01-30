@@ -13,8 +13,7 @@ ENV SP_ID="$SP_URL/shibboleth"
 
 WORKDIR /app
 
-RUN install_packages curl runit apache2 openssl ca-certificates procps net-tools \
-                      libapache2-mod-shib2  && \
+RUN install_packages curl runit apache2 openssl ca-certificates libapache2-mod-shib2  && \
     mkdir -p /run/shibboleth && chmod 0755 /run/shibboleth && chown _shibd /run/shibboleth && \
     mkdir -p /var/shibboleth && chmod 0755 /run/shibboleth && chown _shibd /run/shibboleth && \
     mkdir -p /etc/scripts
