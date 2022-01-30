@@ -1,24 +1,65 @@
+require 'tempfile'
+
+repo1 = "ghcr.io/digital-identity-labs/rasp"
+repo2 = "digitalidentity/rasp"
+snapshot_name = "rasp:snapshot"
+full_version = File.read("VERSION").to_s.strip
 
 task :default => :refresh
 
-task :refresh => [:build, :test]
+task :refresh => [:build]
 
+desc "Rebuild the image"
+task :rebuild => [:force_reset, :build]
+
+desc "Build and tag the images (local architecture only)"
 task :build do
-  sh "docker build --pull -t digitalidentitylabs/rasp ."
+
+  tmp_file = Tempfile.new("docker")
+  git_hash = `git rev-parse --short HEAD`
+
+  rebuild_or_not = ENV["MDQT_FORCE_REBUILD"] ? "--pull --force-rm" : ""
+
+  sh [
+       "docker build --iidfile #{tmp_file.path}",
+       "--label 'version=#{full_version}'",
+       "--label 'org.opencontainers.image.revision=#{git_hash}'",
+       rebuild_or_not,
+       "./"
+     ].join(" ")
+
+  image_id = File.read(tmp_file.path).to_s.strip
+
+  sh "docker tag #{image_id} #{repo1}:#{full_version}"
+  sh "docker tag #{image_id} #{repo1}:latest"
+  sh "docker tag #{image_id} #{repo2}:#{full_version}"
+  sh "docker tag #{image_id} #{repo2}:latest"
+  sh "docker tag #{image_id} #{snapshot_name}"
+
 end
 
-task :rebuild do
-  sh "docker build --pull --force-rm -t digitalidentitylabs/rasp ."
+task :shell => [:build] do
+  sh "docker run --rm -d #{snapshot_name}"
+  container_id = `docker ps -q -l`.chomp
+  sh "docker exec -it #{container_id} /bin/bash"
 end
 
-task :test => [:build] do
-  begin
-    sh "docker run -d -p 8080:8080 digitalidentitylabs/rasp"
-    container_id = `docker ps -q -l`
-    sleep ENV['CI'] ? 20 : 10
-    colour = ENV['CI'] ? "--no-color" : "--color"
-    sh "bundle exec inspec exec specs/rasp-internal/ #{colour} -t docker://#{container_id} "
-  ensure
-    sh "docker stop #{container_id}" if container_id
-  end
+desc "Rebuild and publish all Docker images to Github and Dockerhub, for multiple architectures"
+task publish: ["build"] do
+
+  sh "docker buildx build --platform linux/amd64,linux/arm64,linux/arm/v7 -t #{repo1}:#{full_version} --push ."
+  sh "docker buildx build --platform linux/amd64,linux/arm64,linux/arm/v7 -t #{repo1}:latest --push ."
+  sh "docker buildx build --platform linux/amd64,linux/arm64,linux/arm/v7 -t #{repo2}:#{full_version} --push ."
+  sh "docker buildx build --platform linux/amd64,linux/arm64,linux/arm/v7 -t #{repo2}:latest --push ."
+
+end
+
+task :force_reset do
+  ENV["MDQT_FORCE_REBUILD"] = "yes"
+end
+
+task spec: ["build"] do
+
+  sh "bundle exec rspec spec/rasp/*_spec.rb"
+
 end
