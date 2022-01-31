@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.3.1
+
+D'oh, minor script bug needs to be fixed
+
+### Fixes
+
+- The keygen.sh wrapper script would not run properly in descendent images as
+  it wouldn't overwrite. Fixed by adding a -f force flag
+
 ## 0.3.0
 
 A big rewrite to do mostly the same thing but a little bit better
