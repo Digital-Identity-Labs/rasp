@@ -1,7 +1,7 @@
 # Rasp
 
-[![Docker Stars](https://img.shields.io/docker/stars/digitalidentity/Rasp.svg)](https://hub.docker.com/r/digitalidentity/Rasp/)
-[![Image Details](https://images.microbadger.com/badges/image/digitalidentity/Rasp.svg)](https://microbadger.com/images/digitalidentity/Rasp "Get your own image badge on microbadger.com")
+[![Docker Stars](https://img.shields.io/docker/stars/digitalidentity/rasp.svg)](https://hub.docker.com/r/digitalidentity/rasp/)
+[![Image Details](https://images.microbadger.com/badges/image/digitalidentity/rasp.svg)](https://microbadger.com/images/digitalidentity/rasp "Get your own image badge on microbadger.com")
 
 ## What is this?
 
