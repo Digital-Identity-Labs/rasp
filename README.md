@@ -21,7 +21,7 @@ logging to STDOUT by default and a healthcheck.
 
 ## Why use this?
 
-* Relatively compact (it's still shockingly large TBH but we've tried our best and it's smaller than many others)
+* Relatively compact (it's still quite large at 70Mb to download but we've tried our best and it's smaller than many others)
 * Apache and Shibd processed are properly managed by [Runit](http://smarden.org/runit/)
 * Logging is directed to STDOUT by default
 * Apache and Shibboleth SP configuration files are easily customised
