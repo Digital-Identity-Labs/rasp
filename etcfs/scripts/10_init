@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+echo "Checking and fixing SP file permissions..."
+for cert_dir in $SP_CERT_DIRS; do
+    chown root:_shibd ${cert_dir}/*.pem
+    chmod g+r,o-rwx   ${cert_dir}/*key.pem
+done
+
+
+
