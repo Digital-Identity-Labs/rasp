@@ -10,10 +10,11 @@ ARG DEBIAN_FRONTEND="noninteractive"
 ENV SP_HOST="sp.example.org"
 ENV SP_URL="https://$SP_HOST"
 ENV SP_ID="$SP_URL/shibboleth"
+ENV SP_CERT_DIRS="/etc/shibboleth"
 
 WORKDIR /app
 
-RUN install_packages curl runit apache2 openssl ca-certificates libapache2-mod-shib2  && \
+RUN install_packages curl runit apache2 openssl ca-certificates libapache2-mod-shib2 libapache2-mod-auth-openidc && \
     mkdir -p /run/shibboleth && chmod 0755 /run/shibboleth && chown _shibd /run/shibboleth && \
     mkdir -p /var/shibboleth && chmod 0755 /run/shibboleth && chown _shibd /run/shibboleth && \
     mkdir -p /etc/scripts
