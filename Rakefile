@@ -18,7 +18,7 @@ task :build do
   tmp_file = Tempfile.new("docker")
   git_hash = `git rev-parse --short HEAD`
 
-  rebuild_or_not = ENV["MDQT_FORCE_REBUILD"] ? "--pull --force-rm" : ""
+  rebuild_or_not = ENV["RASP_FORCE_REBUILD"] ? "--pull --force-rm" : ""
 
   sh [
        "docker build --iidfile #{tmp_file.path}",
@@ -55,7 +55,7 @@ task publish: ["build"] do
 end
 
 task :force_reset do
-  ENV["MDQT_FORCE_REBUILD"] = "yes"
+  ENV["RASP_FORCE_REBUILD"] = "yes"
 end
 
 task spec: ["build"] do
