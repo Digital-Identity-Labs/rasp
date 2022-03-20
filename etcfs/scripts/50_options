@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+echo "Enabling extra Apache modules listed in APACHE_EXTRA_MODS..."
+for module in $APACHE_EXTRA_MODS; do
+  a2enmod "${module}"
+done
+
+
+
