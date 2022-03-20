@@ -24,7 +24,8 @@ logging to STDOUT by default and a healthcheck.
 * Apache and Shibd processed are properly managed by [Runit](http://smarden.org/runit/)
 * Logging is directed to STDOUT by default
 * Apache and Shibboleth SP configuration files are easily customised
-* Follows Docker best-practices
+* Follows Docker best-practice
+* Experimental: also includes mod-auth-openidc (enabled using ENV)
 
 ## Any reasons not to use this?
 
@@ -112,32 +113,51 @@ version: '3'
 services:
   frontend:
     image: traefik:latest
-    command: --web --docker --docker.domain=docker.localhost --logLevel=DEBUG
+    command:
+      - --api.insecure=false
+      - --api.dashboard=false
+      - --api.debug=false
+      - --log.level=INFO
+      - --providers.docker=true
+      - --providers.docker.swarmMode=false
+      - --providers.docker.exposedbydefault=false
+      - --entrypoints.http.address=:80
+      - --entrypoints.https.address=:443
+      - --certificatesresolvers.letsencrypt.acme.httpchallenge=true
+      - --certificatesresolvers.letsencrypt.acme.httpchallenge.entrypoint=http
+      - --certificatesresolvers.letsencrypt.acme.email=pete@example.com
+      - --certificatesresolvers.letsencrypt.acme.storage=/letsencrypt/acme.json
     ports:
       - "443:443"
       - "80:80"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-      - ./frontend/traefik.toml:/traefik.toml
-      - ./frontend/certs:/certs
-
+      - letsencrypt:/letsencrypt
+    depends_on:
+      - sp
   sp:
-    image: digitalidentity/rasp:latest
-    volumes:
-     - ./sp/apache2:/etc/apache2
-     - ./sp/shibboleth:/etc/shibboleth
+    image: rasp:latest
     labels:
-      - "traefik.backend=sp"
-      - "traefik.frontend.passHostHeader=true"
-      - "traefik.frontend.rule=Host:sp.localhost.demo.university"
-      - "traefik.frontend.entryPoints=https"
+      - "traefik.enable=true"
+      - "traefik.http.routers.sp.entrypoints=https"
+      - "traefik.http.routers.sp.rule=Host(`testsp.example.com`)"
+      - "traefik.http.routers.sp.tls=true"
+      - "traefik.http.routers.sp.tls.certresolver=letsencrypt"
+      - "traefik.http.routers.sp.tls.domains[0].main=testsp.example.com"
+      - "traefik.http.services.sp.loadbalancer.server.port=443"
       - "traefik.port=80"
-      - "traefik.protocol=http"
+      - "traefik.default.protocol=http"
+      - "traefik.http.middlewares.tweak_sp.headers.customrequestheaders.X-Forwarded-Host=testsp.example.com"
+      - "traefik.http.middlewares.tweak_sp.headers.customrequestheaders.X-Forwarded-Proto=https"
+      - "traefik.http.routers.sp.middlewares=tweak_sp@docker"
 
-   
+volumes:
+  letsencrypt:
+
+networks:
+  web:
+    external: true
 ```
-
-(This is not going to work on its own!)
 
 ### When building an image based on Rasp
 
@@ -147,14 +167,18 @@ Possibly useful things to know:
 * Certificate rebuilds will happen when the new image is built, to make sure you are not using any inherited
   keys. You can generate your own using `/etc/rasp/keygen.sh` or manually with `/usr/sbin/shib-keygen` but please
   try to keep them off the image - mount them from disk if possible.
+* APACHE_EXTRA_MODS can be used to enable additional modules that are present but
+  not loaded by default. Separate each module name with a space, for example:  
+  `APACHE_EXTRA_MODS="auth_openidc authnz_ldap"`
+* /etc/scripts contains scripts that are run when the container starts, but before
+  Apache is launched.
 
 ### When using Rasp's Dockerfile to build your own images
 
-The defaults for these settings can be changed by using `--build-arg THE_ARG="new setting"` with `docker build`
-
-*  SP_HOST the host/domain name of the primary SP/website
-*  SP_URL the full base URL of the primary SP/website
-*  SP_ID the entity ID of the primary SP
+* SP_HOST: the host/domain name of the primary SP/website
+* SP_URL: the full root URL of the primary SP/website
+* SP_ID: the entity ID of the primary SP
+* APACHE_EXTRA_MODS: is a list of extra modules to enable at runtime
 
 ## Other Information
 

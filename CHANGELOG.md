@@ -1,8 +1,25 @@
 # Changelog
 
+## 0.4.0
+
+### Major changes
+
+- Includes mod-auth-openidc as an optional module. Enable it by setting `APACHE_EXTRA_MODS="auth_openidc"`
+
+### Improvements
+
+- Additional modules can be enabled by listing them in `APACHE_EXTRA_MODS`
+- The default ServerName is set using the `SP_URL` ENV variable.
+
+### Fixes
+
+- Certificates and keys in /etc/shibboleth with typical filenames will have their
+  permissions adjusted at runtime.
+- UseCanonical is now `on` by default
+
 ## 0.3.1
 
-D'oh, minor script bug needs to be fixed
+D'oh, a minor script bug needs to be fixed
 
 ### Fixes
 
