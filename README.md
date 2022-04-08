@@ -64,7 +64,7 @@ containerid=$(docker ps | grep rasp | awk '{print $1}')
 
 mkdir etcfs
 
-docker cp $containerid:/etc/apache2 ./etcfs/apach2
+docker cp $containerid:/etc/apache2 ./etcfs/apache2
 docker cp $containerid:/etc/shibboleth ./etcfs/shibboleth
 
 docker stop $containerid
@@ -93,13 +93,14 @@ ENV SP_URL="https://$SP_HOST"
 ENV SP_ID="$SP_URL/shibboleth"
 
 ## Copy your configuration files over into the image
-COPY etcfs /etc
+COPY etcfs/apache2 /etc/apache2
+COPY etcfs/shibboleth /etc/shibboleth
 
 ```
 
 or run the Rasp image with mounted directories or files:
 
-`docker run -v /home/bjensen/myshib/etcfs:/etc digitalidentity/rasp`
+`docker run -v /home/bjensen/myshib/etcfs/apache2:/etc/apache2 -v /home/bjensen/myshib/etcfs/shibboleth:/etc/shibboleth digitalidentity/rasp`
 
 ### Using with Docker Compose
 
