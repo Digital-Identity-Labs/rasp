@@ -55,7 +55,7 @@ Images are available from Dockerhub and Github:
 
 Run the unconfigured default SP in the foreground, with a http port available:
 
-`docker run -it -p 80:80 digitalidentity/rasp`
+`docker run -it digitalidentity/rasp`
 
 Copy the current configuration from the running container:
 
@@ -100,7 +100,7 @@ COPY etcfs/shibboleth /etc/shibboleth
 
 or run the Rasp image with mounted directories or files:
 
-`docker run -v /home/bjensen/myshib/etcfs/apache2:/etc/apache2 -v /home/bjensen/myshib/etcfs/shibboleth:/etc/shibboleth digitalidentity/rasp`
+`docker run -it -p 80:80 -v /home/bjensen/myshib/etcfs/apache2:/etc/apache2 -v /home/bjensen/myshib/etcfs/shibboleth:/etc/shibboleth digitalidentity/rasp`
 
 ### Using with Docker Compose
 
