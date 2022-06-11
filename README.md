@@ -25,7 +25,7 @@ logging to STDOUT by default and a healthcheck.
 * Logging is directed to STDOUT by default
 * Apache and Shibboleth SP configuration files are easily customised
 * Follows Docker best-practice
-* Experimental: also includes mod-auth-openidc (enabled using ENV)
+* Experimental: also includes mod-auth-openidc and mod-auth-cas (enabled using ENV)
 
 ## Any reasons not to use this?
 
@@ -170,7 +170,7 @@ Possibly useful things to know:
   try to keep them off the image - mount them from disk if possible.
 * APACHE_EXTRA_MODS can be used to enable additional modules that are present but
   not loaded by default. Separate each module name with a space, for example:  
-  `APACHE_EXTRA_MODS="auth_openidc authnz_ldap"`
+  `APACHE_EXTRA_MODS="auth_openidc authnz_ldap auth_cas"`
 * /etc/scripts contains scripts that are run when the container starts, but before
   Apache is launched.
 

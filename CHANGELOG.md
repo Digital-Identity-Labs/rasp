@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.5.0
+
+### Major changes
+
+- Includes mod-auth-cas as an optional module. Enable it by setting `APACHE_EXTRA_MODS="auth_cas"`
+
 ## 0.4.0
 
 ### Major changes
