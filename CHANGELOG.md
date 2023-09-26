@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.5.1
+
+### Major changes
+
+- Package names for Shibboleth SP have been updated to match the new names in recent Debian releases
+
 ## 0.5.0
 
 ### Major changes
