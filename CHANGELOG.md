@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.6.0
+
+### Major Changes
+
+- Kerberos support in Apache, from libapache2-mod-auth-gssapi and krb5-user (PRs #6 & #7)
+
+### Improvements
+
+- Update to Dockerfile base image to be more specific (Bookworm)
+
 ## 0.5.1
 
 ### Major changes
