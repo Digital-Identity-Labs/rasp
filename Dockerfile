@@ -16,7 +16,7 @@ ENV SP_CERT_DIRS="/etc/shibboleth" \
 WORKDIR /app
 
 RUN install_packages curl runit apache2 openssl ca-certificates \
-    libapache2-mod-shib libapache2-mod-auth-openidc libapache2-mod-auth-cas && \
+    libapache2-mod-shib libapache2-mod-auth-gssapi libapache2-mod-auth-openidc libapache2-mod-auth-cas && \
     mkdir -p /run/shibboleth && chmod 0755 /run/shibboleth && chown _shibd /run/shibboleth && \
     mkdir -p /var/shibboleth && chmod 0755 /run/shibboleth && chown _shibd /run/shibboleth && \
     mkdir -p /etc/scripts
@@ -39,7 +39,7 @@ RUN chmod a+x /etc/service/**/run && touch /etc/inittab && \
     chown _shibd:_shibd /etc/shibboleth/metadata/federated && \
     a2enmod shib ssl http2 rewrite proxy proxy_balancer proxy_ajp proxy_http proxy_http2 \
             headers expires deflate status && \
-    a2dismod cgi cgid auth_openidc auth_cas && \
+    a2dismod cgi cgid auth_gssapi auth_openidc auth_cas && \
     a2enconf defaults deversion security pterry tuning zz_overrides && \
     ln -sf /proc/self/fd/1 /var/log/apache2/access.log && \
     ln -sf /proc/self/fd/1 /var/log/apache2/error.log  && \
