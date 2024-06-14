@@ -198,6 +198,7 @@ This project started life as **R**ails **A**pache **SP** (RASP) but the Ruby on 
 * We're just packaging huge amounts of work by [The Shibboleth Consortium](https://www.shibboleth.net/consortium/),
   Debian and the wider Shibboleth community. If your organisation depends on Shibboleth please consider supporting them with a
   donation.
+* Github user [Porkotron](https://github.com/porkotron) for fixes and suggestions 
 
 ### Contributing
 
@@ -212,6 +213,6 @@ than use Github.
 
 ### License
 
-Copyright (c) 2017,2022 Digital Identity Ltd, UK
+Copyright (c) 2017,2024 Digital Identity Ltd, UK
 
 Licensed under the MIT License
