@@ -10,6 +10,11 @@
 
 - Update to Dockerfile base image to be more specific (Bookworm)
 
+### Known Issues
+
+- A [warning about OpenSSL versions](https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=1069748) may be
+  shown (due to upstream Debian issues) but does not seem to be a problem. 
+
 ## 0.5.1
 
 ### Major changes
