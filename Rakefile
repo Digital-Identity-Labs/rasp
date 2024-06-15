@@ -18,7 +18,7 @@ task :build do
   tmp_file = Tempfile.new("docker")
   git_hash = `git rev-parse --short HEAD`
 
-  rebuild_or_not = ENV["RASP_FORCE_REBUILD"] ? "--pull --force-rm" : ""
+  rebuild_or_not = ENV["RASP_FORCE_REBUILD"] ? "--pull --force-rm --no-cache" : ""
 
   sh [
        "docker build --iidfile #{tmp_file.path}",
