@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.7.0
+
+### Major Changes
+
+- Includes Mod Security 2 module for Apache, disabled by default (PR #8)
+
+### Improvements
+
+- Should no longer complain about OpenSSL versions (Debian fixed this, not me)
+
 ## 0.6.0
 
 ### Major Changes

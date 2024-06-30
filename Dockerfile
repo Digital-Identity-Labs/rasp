@@ -16,7 +16,8 @@ ENV SP_CERT_DIRS="/etc/shibboleth" \
 WORKDIR /app
 
 RUN install_packages curl runit apache2 openssl ca-certificates krb5-user \
-    libapache2-mod-shib libapache2-mod-auth-gssapi libapache2-mod-auth-openidc libapache2-mod-auth-cas libapache2-mod-security2 && \
+    libapache2-mod-shib libapache2-mod-auth-gssapi libapache2-mod-auth-openidc \
+    libapache2-mod-auth-cas libapache2-mod-security2 && \
     mkdir -p /run/shibboleth && chmod 0755 /run/shibboleth && chown _shibd /run/shibboleth && \
     mkdir -p /var/shibboleth && chmod 0755 /run/shibboleth && chown _shibd /run/shibboleth && \
     mkdir -p /etc/scripts
