@@ -1,4 +1,4 @@
-FROM bitnami/minideb:bookworm
+FROM bitnami/minideb:trixie
 
 LABEL description="A simple, unconfigured Apache reverse proxy service including the Shibboleth SP module" \
       maintainer="pete@digitalidentitylabs.com" \
