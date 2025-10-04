@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+POSSIBLE_DANGLING_FILES=( /var/run/apache2/apache2.pid /var/run/shibboleth/shibd.sock )
+
+for DANGLING_FILE in "${POSSIBLE_DANGLING_FILES[@]}"
+do
+	if [[ -n "$DANGLING_FILE" && -f $DANGLING_FILE ]]; then
+		rm -f $DANGLING_FILE
+		echo "Removed dangling file $DANGLING_FILE"
+	fi
+done
