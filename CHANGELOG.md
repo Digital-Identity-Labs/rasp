@@ -8,6 +8,10 @@
 ### Fixes
 - Will now clean up left-over socket and pid files when restarting
 
+### Known Issues
+
+- Serverspec tests are now so old they don't seem to work anymore, and need to be fixed and updated
+
 ## 0.7.0
 
 ### Major Changes
