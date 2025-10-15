@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+echo "Checking for dangling files to clean up..."
 
 POSSIBLE_DANGLING_FILES=( /var/run/apache2/apache2.pid /var/run/shibboleth/shibd.sock )
 
