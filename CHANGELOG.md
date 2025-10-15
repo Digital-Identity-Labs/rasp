@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.8.0
+
+### Major Changes
+- Now using miniDeb Debian 13 "Trixie" base image
+
+### Fixes
+- Will now clean up left-over socket and pid files when restarting
+
 ## 0.7.0
 
 ### Major Changes

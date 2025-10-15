@@ -191,7 +191,7 @@ Possibly useful things to know:
 ### Why is this called "Rasp"?
 
 This project started life as **R**ails **A**pache **SP** (RASP) but the Ruby on Rails parts have been removed 
-(we're adding Rails in a derived image now, and keeping Rasp as simple as possible)
+(we're adding web apps, web frameworks, etc in a derived image now, and keeping Rasp as simple as possible)
 
 ### Thanks
 
@@ -213,6 +213,6 @@ than use Github.
 
 ### License
 
-Copyright (c) 2017,2024 Digital Identity Ltd, UK
+Copyright (c) 2017,2025 Digital Identity Ltd, UK
 
 Licensed under the MIT License
