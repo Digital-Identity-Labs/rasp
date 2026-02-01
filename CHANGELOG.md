@@ -1,5 +1,8 @@
 # Changelog
 
+## 0.8.1
+- OS Patch release
+
 ## 0.8.0
 
 ### Major Changes
